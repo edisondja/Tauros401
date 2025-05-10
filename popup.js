@@ -1,4 +1,9 @@
+function limpiar_link(){
 
+    chrome.storage.local.remove("link_v", function () {
+        console.log("link_v eliminado correctamente, varaible limpia para nueva captura");
+    });
+}
 
 function enviar_a_servidor(host, titulo_p, descripcion_p, categorias_p, link_media_p,id_user_p) {
 
@@ -38,6 +43,8 @@ function enviar_a_servidor(host, titulo_p, descripcion_p, categorias_p, link_med
 
 document.addEventListener('DOMContentLoaded', () => {
 
+      //Limpiando Local Storage para asignar nuevo link de decarga....
+      limpiar_link();
         //Abriendo archivo de configuración
       fetch('config.json').then(
         response => response.json()).then(data=>{
@@ -140,11 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
         //alert(`TITUL: ${titulo} descripcion ${descripcion} categorias ${categorias.join(', ')}`);
 
         enviar_a_servidor(host, titulo, descripcion, categorias,link,id_user);
+        limpiar_link();
     
-        chrome.storage.local.remove("link_v", function () {
-          console.log("link_v eliminado correctamente, varaible limpia para nueva captura");
-          alert('captura limpia.');
-        });
 
       });
 
